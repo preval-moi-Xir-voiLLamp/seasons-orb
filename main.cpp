@@ -4,14 +4,24 @@
 
 int main(void)
 {
-	sf::RenderWindow window(sf::VideoMode(500, 500), "Breakdown");
+	sf::RenderWindow window(sf::VideoMode(500, 500), "Season's Orb");
 	sf::Clock c;	
 
     MasterManager all_layers;
-    Layer *all_objects = all_layers.add<Layer>();
+    Layer &all_objects = *all_layers.add<Layer>();
+    Grid &world = *all_objects.add<Grid>();
 
-    Grid *world = all_objects->add<Grid>();
-    //all_objects->add<Phoenix>(*world);
+    std::map<sf::Keyboard::Key, Action> mapKey =
+    {
+        {sf::Keyboard::Left, Action::Left},
+        {sf::Keyboard::H, Action::Left},
+        {sf::Keyboard::Right, Action::Right},
+        {sf::Keyboard::L, Action::Right},
+        {sf::Keyboard::Up, Action::Up},
+        {sf::Keyboard::K, Action::Up},
+        {sf::Keyboard::Down, Action::Down},
+        {sf::Keyboard::J, Action::Down}
+    };
 
 	//Main loop
 	while(window.isOpen())
@@ -29,15 +39,14 @@ int main(void)
 				break;
 
 			case sf::Event::KeyPressed:
-				switch(event.key.code)
-				{
-				case sf::Keyboard::Escape:
-					window.close();
-
-				default:
-					break;
-				}
-				break;
+            {
+                auto keyAct = mapKey.find(event.key.code);
+                if(keyAct != mapKey.end())
+                    world.act(keyAct->second);
+                else if(event.key.code == sf::Keyboard::Escape)
+                    window.close();
+                break;
+            }
 
 			default:
 				break;

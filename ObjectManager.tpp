@@ -73,6 +73,15 @@ void ObjectManager<T>::update(
     }
 }
 
+template<typename T>
+void ObjectManager<T>::nextStep(void)
+{
+    for(auto &i: m_AliveList)
+    {
+        i->nextStep();
+    }
+}
+
 /*! \brief Draw all the objects that were created by this ObjectManager
  */
 template<typename T>

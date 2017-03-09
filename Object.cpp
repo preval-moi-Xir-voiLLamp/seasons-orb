@@ -1,6 +1,7 @@
 /*! \file Object.cpp
  */
 #include "Object.h"
+#include "Grid.h"
 #include <iostream>
 
 /*** AbstractObject ***/
@@ -50,9 +51,10 @@ void AbstractObject::die(void)
 /*! \brief Constructor of Object
  */
 Object::Object(
-    sf::Vector2i position
-    /*!< The initial position of the object*/)
+    const Grid &world /*!< Reference to the world the objects live in*/,
+    sf::Vector2i position /*!< The starting position of the object*/)
 :
+    m_World(world),
     m_Position(position),
     m_Sprite()
 {
@@ -76,21 +78,16 @@ void Object::update(
     m_Sprite.setPosition(m_Position);
 }
 
+void Object::nextStep(void)
+{
+    std::cerr << "nextStep is not implemented" << std::endl;
+}
+
 /* */
 void Object::draw(sf::RenderTarget &rt, sf::RenderStates s) const
 {
     rt.draw(m_Sprite, s);
 }
-
-/*! \brief Says wether an object is dead
- *
- * If the object is dead but that it didn't get removed (see
- * ObjectManager::update to see why) we do not want to consider it in our own
- * update function.
- *
- * \retval true The object is dead
- * \retval false The object is still alive
- */
 
 /*** Object::Sprite ***/
 
@@ -123,6 +120,5 @@ void Object::Sprite::setPosition(
         sf::Vector2i xy
         /*!< The position to set the sprite to*/)
 {
-    std::cerr << "Cette fonction n'existe pas" << std::endl;
-    //TODO ?
+    m_Circle.setPosition(xy.x * 100, xy.y * 100);
 }

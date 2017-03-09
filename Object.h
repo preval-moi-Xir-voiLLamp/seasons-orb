@@ -16,6 +16,7 @@ public:
     AbstractObject(void);
     virtual ~AbstractObject(void);
     virtual void update(float dt) = 0;
+    virtual void nextStep(void) = 0;
     bool isDead(void);
     
 protected:
@@ -25,6 +26,7 @@ private:
     bool m_Dead; /*!< Is the object to be destroyed */
 };
 
+class Grid;
 /*! \brief Type of every object that are killable or directly in game (e.g not HUB or particule
  * effects).
  *
@@ -35,12 +37,14 @@ private:
 class Object: public AbstractObject
 {
 public:
-    Object(sf::Vector2i position=sf::Vector2i(0, 0));
+    Object(const Grid &world, sf::Vector2i position=sf::Vector2i(0, 0));
     virtual ~Object(void);
     void update(float dt) override = 0;
+    void nextStep(void) override = 0;
     void draw(sf::RenderTarget &rt, sf::RenderStates s) const override;
 
 protected:
+    const Grid &m_World; /*!< The world the object lives in*/
     sf::Vector2i m_Position; /*!< The current position of the object*/
 
 private:
