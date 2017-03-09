@@ -45,9 +45,9 @@ U* ObjectManager<T>::add(
  * function?
  */
 template<typename T>
-void ObjectManager<T>::update(
-        float dt
-        /*!< Time elapsed since last call of update*/)
+void ObjectManager<T>::update (
+    float dt
+    /*!< Time elapsed since last call of update*/)
 {
     /* We will update all the object and stock the dead one in dead list, then
      * delete all objects of the dead list

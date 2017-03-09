@@ -8,7 +8,7 @@
 
 /*! \brief Constructor of AbstractObject
  */
-AbstractObject::AbstractObject()
+AbstractObject::AbstractObject(void)
 :
     m_Dead(false)
 {
@@ -16,7 +16,7 @@ AbstractObject::AbstractObject()
 
 /*! \brief Destructor of AbstractObject
  */
-AbstractObject::~AbstractObject()
+AbstractObject::~AbstractObject(void)
 {
 }
 

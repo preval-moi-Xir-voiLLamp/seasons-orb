@@ -7,10 +7,11 @@ class Phoenix: public Object
 {
 public:
     Phoenix(const Grid &world);
-    virtual ~Phoenix();
+    virtual ~Phoenix(void);
 
     void update(float dt) override;
     void nextStep(void) override;
+
 
 private:
 };

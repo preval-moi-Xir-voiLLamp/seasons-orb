@@ -4,12 +4,12 @@
 
 int main(void)
 {
-	sf::RenderWindow window(sf::VideoMode(500, 500), "Season's Orb");
-	sf::Clock c;	
+    sf::RenderWindow window(sf::VideoMode(500, 500), "Season's Orb");
+    sf::Clock c;
 
-    MasterManager all_layers;
-    Layer &all_objects = *all_layers.add<Layer>();
-    Grid &world = *all_objects.add<Grid>();
+    MasterManager allLayers;
+    Layer &allObjects = *allLayers.add<Layer>();
+    Grid &world = *allObjects.add<Grid>();
 
     std::map<sf::Keyboard::Key, Action> mapKey =
     {
@@ -23,22 +23,22 @@ int main(void)
         {sf::Keyboard::J, Action::Down}
     };
 
-	//Main loop
-	while(window.isOpen())
-	{
-		float dt = c.restart().asSeconds();
+    //Main loop
+    while(window.isOpen())
+    {
+        float dt = c.restart().asSeconds();
 
-		//Event loop
-		sf::Event event;
-		while(window.pollEvent(event))
-		{
-			switch(event.type)
-			{
-			case sf::Event::Closed:
-				window.close();
-				break;
+        //Event loop
+        sf::Event event;
+        while(window.pollEvent(event))
+        {
+            switch(event.type)
+            {
+            case sf::Event::Closed:
+                window.close();
+                break;
 
-			case sf::Event::KeyPressed:
+            case sf::Event::KeyPressed:
             {
                 auto keyAct = mapKey.find(event.key.code);
                 if(keyAct != mapKey.end())
@@ -48,19 +48,19 @@ int main(void)
                 break;
             }
 
-			default:
-				break;
-			}
-		}
+            default:
+                break;
+            }
+        }
 
-		//update
-        all_layers.update(dt);
+        //update
+        allLayers.update(dt);
 
-		//draw
-		window.clear();
-		window.draw(all_layers);
-		window.display();
-	}
+        //draw
+        window.clear();
+        window.draw(allLayers);
+        window.display();
+    }
 
-	return 0;
+    return 0;
 }

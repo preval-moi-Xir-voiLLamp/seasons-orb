@@ -2,6 +2,7 @@
 #ifndef HEAD_OBJECT
 #define HEAD_OBJECT
 #include <SFML/Graphics.hpp>
+class Grid;
 
 /*! \brief Type of every objects in our game
  *
@@ -18,7 +19,7 @@ public:
     virtual void update(float dt) = 0;
     virtual void nextStep(void) = 0;
     bool isDead(void);
-    
+
 protected:
     void die(void);
 
@@ -26,7 +27,6 @@ private:
     bool m_Dead; /*!< Is the object to be destroyed */
 };
 
-class Grid;
 /*! \brief Type of every object that are killable or directly in game (e.g not HUB or particule
  * effects).
  *
@@ -54,8 +54,8 @@ private:
      */
     struct Sprite: public sf::Drawable
     {
-        Sprite();
-        virtual ~Sprite();
+        Sprite(void);
+        virtual ~Sprite(void);
         void draw(sf::RenderTarget &rt, sf::RenderStates s) const override;
         void setPosition(sf::Vector2i v);
 

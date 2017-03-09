@@ -6,7 +6,8 @@
  * This is the initialisation of the game. It creates its own object manager so
  * as to have more control on their update cycle.
  */
-Grid::Grid():
+Grid::Grid(void)
+:
     m_Width(3),
     m_Height(3),
     m_Grid(m_Width, std::vector<std::list<Object *>>(m_Height)),
@@ -16,7 +17,7 @@ Grid::Grid():
 {
 }
 
-Grid::~Grid()
+Grid::~Grid(void)
 {
 }
 

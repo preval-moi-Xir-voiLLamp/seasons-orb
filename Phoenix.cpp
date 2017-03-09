@@ -2,14 +2,15 @@
 #include "Phoenix.h"
 #include "Grid.h"
 
-Phoenix::Phoenix(const Grid &world):
+Phoenix::Phoenix(const Grid &world)
+:
     Object(world)
 {
 }
 
-Phoenix::~Phoenix()
+Phoenix::~Phoenix(void)
 {
-} 
+}
 
 void Phoenix::update(float dt)
 {
@@ -27,7 +28,7 @@ void Phoenix::nextStep(void)
     {
     case Action::Up:
         d = Direction::Up;
-        p.y -= 1; 
+        p.y -= 1;
         break;
 
     case Action::Down:
@@ -49,10 +50,10 @@ void Phoenix::nextStep(void)
         break;
     }
 
-    if(d != Direction::None 
+    if(d != Direction::None
     && m_World.canMove(m_Position, d))
-    { 
-       m_Position = p; 
+    {
+       m_Position = p;
     }
 
     Object::nextStep();
