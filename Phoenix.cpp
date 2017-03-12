@@ -1,7 +1,7 @@
 #include "Phoenix.h"
 #include "Grid.h"
 
-Phoenix::Phoenix(const Grid &world)
+Phoenix::Phoenix(Grid &world)
 :
     Object(world)
 {
@@ -19,37 +19,32 @@ void Phoenix::impl_update(float)
 void Phoenix::impl_nextStep(void)
 {
     Direction d = Direction::None;
-    sf::Vector2i p = m_Position;
 
+    /*! \todo Have a conversion from Action to direction */
     switch(m_World.currentAction())
     {
     case Action::Up:
         d = Direction::Up;
-        p.y -= 1;
         break;
 
     case Action::Down:
         d = Direction::Down;
-        p.y += 1;
         break;
 
     case Action::Left:
         d = Direction::Left;
-        p.x -= 1;
         break;
 
     case Action::Right:
         d = Direction::Right;
-        p.x += 1;
         break;
 
     default:
         break;
     }
 
-    if(d != Direction::None
-    && m_World.canMove(m_Position, d))
+    if(d != Direction::None)
     {
-       m_Position = p;
+        move(d);
     }
 }

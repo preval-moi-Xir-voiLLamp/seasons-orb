@@ -2,11 +2,12 @@
 #ifndef HEAD_OBJECT
 #define HEAD_OBJECT
 #include <SFML/Graphics.hpp>
+#include "Constant.h"
 class Grid;
 
 /*! \brief Type of every objects in our game
  *
- * This is the general type of every objects we will ever use. 
+ * This is the general type of every objects we will ever use.
  * This includes game object such as characters or terrain, but more obscure
  * abstraction such as grid or ObjectManager.
  * Basically, everything that needs to be drawn and updated.
@@ -74,7 +75,7 @@ public:
     /*! \brief Constructor of AbstractObject
      */
     Object(
-        const Grid &world,
+        Grid &world,
         /*!< Reference to the world the objects live in*/
 
         sf::Vector2i position = sf::Vector2i(0, 0)
@@ -107,12 +108,16 @@ public:
     /* */
     void draw(sf::RenderTarget &rt, sf::RenderStates s) const override;
 
-protected:
-    const Grid &m_World;
-    /*!< The world the object lives in*/
 
-    sf::Vector2i m_Position;
-    /*!< The current position of the object on the grid*/
+protected:
+    /*! \brief Move the object to a direction d
+     */
+    void move(
+        Direction d
+        /*!< The direction to move toward*/);
+
+    Grid &m_World;
+    /*!< The world the object lives in*/
 
 private:
     /*! \brief Updates the object with respect to that object
@@ -164,6 +169,9 @@ private:
         /*!< The content of the sprite*/
     } m_Sprite;
     /*!< Sprite of the object*/
+
+    sf::Vector2i m_Position;
+    /*!< The current position of the object on the grid*/
 };
 
 #endif //HEAD_OBJECT

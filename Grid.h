@@ -4,6 +4,8 @@
 #define HEAD_GRID
 #include <list>
 #include <vector>
+#include <SFML/Graphics.hpp>
+#include "Constant.h"
 #include "Object.h"
 #include "ObjectManager.h"
 #include "Phoenix.h"
@@ -39,14 +41,46 @@ public:
     /* */
     void draw(sf::RenderTarget &rt, sf::RenderStates s) const override;
 
-    /*! \brief Says wether an object at position p can move toward direction d
+    /*! \brief Says wether an object obj can come into the case of position p
+     *
+     * \return True if the object can be accepted on this case, false otherwise
      */
-    bool canMove(
-        sf::Vector2i position,
-        /*!< Position of the object to consider*/
+    bool canTake(
+        Object *obj,
+        /*!< The object to accept. It is a pointer so we can now wether we want
+         * to accept it or not
+         */
 
-        Direction d
-        /*!< The direction towards which the object would move*/) const;
+        sf::Vector2i pos
+        /*!< The posiition where the object want to move into */) const;
+
+    /*! Pop an object from the grid
+     *
+     * \warning As of now, there is no check of wether there is actually an
+     * object or if it is the right one
+     *
+     * \todo Refactor pop and push
+     * \todo Have an actual check of the object
+     * \todo Delete pos parameter, and use a getPos function instead
+     */
+    void pop(
+        Object *obj,
+        /*!< The object to pop*/
+
+        sf::Vector2i pos
+        /*!< The position of the object to pop from*/);
+
+     /*! Push an object into the grid
+     *
+     * \todo Refactor pop and push
+     * \todo Delete pos parameter, and use a getPos function instead
+     */
+    void push(
+        Object *obj,
+        /*!< The object to push*/
+
+        sf::Vector2i pos
+        /*!< The position of the object to push into*/);
 
     /*! \brief Advance all Objects to a new turn under the Action of the player a
     */

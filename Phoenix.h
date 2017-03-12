@@ -12,19 +12,15 @@
 class Phoenix: public Object
 {
 public:
-    Phoenix(const Grid &world);
-    virtual ~Phoenix(void);
-
     /*! \brief Constructor of Phoenix
      */
     Phoenix(
-        const Grid &world
+        Grid &world
         /*!< Reference to the world the object lives in*/);
 
     /*! \brief Destructor of Phoenix
      */
-
-
+    virtual ~Phoenix(void);
 
 private:
     /* */

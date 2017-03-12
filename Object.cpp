@@ -12,10 +12,6 @@ AbstractObject::~AbstractObject(void)
 {
 }
 
-void AbstractObject::nextStep(void)
-{
-}
-
 bool AbstractObject::isDead(void) const
 {
     return m_Dead;
@@ -29,11 +25,11 @@ void AbstractObject::die(void)
 
 /*** Object ***/
 
-Object::Object(const Grid &world, sf::Vector2i position)
+Object::Object(Grid &world, sf::Vector2i position)
 :
     m_World(world),
-    m_Position(position),
-    m_Sprite()
+    m_Sprite(),
+    m_Position(position)
 {
 }
 
@@ -59,6 +55,17 @@ void Object::nextStep(void)
 void Object::draw(sf::RenderTarget &rt, sf::RenderStates s) const
 {
     rt.draw(m_Sprite, s);
+}
+
+void Object::move(Direction d)
+{
+    sf::Vector2i newPos = m_Position + d;
+    if(m_World.canTake(this, newPos))
+    {
+        m_World.pop(this, m_Position);
+        m_Position = newPos;
+        m_World.push(this, m_Position);
+    }
 }
 
 /*** Object::Sprite ***/

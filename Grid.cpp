@@ -30,25 +30,21 @@ void Grid::draw(sf::RenderTarget &rt, sf::RenderStates s) const
     m_AllLayers.draw(rt, s);
 }
 
-bool Grid::canMove(sf::Vector2i p, Direction d) const
+bool Grid::canTake(Object *, sf::Vector2i pos) const
 {
-    switch(d)
-    {
-    case Direction::None:
-        return true;
-    case Direction::Left:
-        return p.x > 0;
-    case Direction::Right:
-        return p.x < m_Width - 1;
-    case Direction::Up:
-        return p.y > 0;
-    case Direction::Down:
-        return p.y < m_Height - 1;
-    }
-
-    return true;
+    return pos.x > 0 && pos.y > 0
+        && pos.x < m_Width - 1 && pos.y < m_Height - 1;
 }
 
+void Grid::pop(Object *, sf::Vector2i pos)
+{
+    m_Grid[pos.x][pos.y].pop_front();
+}
+
+void Grid::push(Object *obj, sf::Vector2i pos)
+{
+    m_Grid[pos.x][pos.y].push_front(obj);
+}
 
 void Grid::act(Action a)
 {

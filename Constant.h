@@ -26,4 +26,30 @@ enum class Direction
     Down
 };
 
+inline sf::Vector2i operator+(sf::Vector2i lhs, Direction rhs)
+{
+    switch(rhs)
+    {
+    case Direction::None:
+        break;
+
+    case Direction::Left:
+        lhs.x--;
+        break;
+
+    case Direction::Right:
+        lhs.x++;
+        break;
+
+    case Direction::Up:
+        lhs.y--;
+        break;
+
+    case Direction::Down:
+        lhs.y++;
+        break;
+    }
+    return lhs;
+}
+
 #endif //HEAD_CONSTANT
