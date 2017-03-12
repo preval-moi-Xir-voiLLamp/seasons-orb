@@ -29,6 +29,17 @@ set undodir="~/.vim/undofiles"
 set background=dark
 syntax on
 hi Normal ctermbg=black ctermfg=grey
-hi CursorLine ctermbg=yellow ctermfg=black 
+hi CursorLine ctermbg=yellow ctermfg=black
 set cursorline
 
+" Set autocommands
+cabbr <expr> %% expand('%:p:h')
+au bufReadPost *.tpp set syntax=cpp
+
+"Highlight unwanted spaces
+hi extraws ctermbg=red
+match extraws /\s\+$\|\t\+/
+
+"Insensitive search
+set ignorecase
+set smartcase
