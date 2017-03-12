@@ -1,11 +1,5 @@
-#include <iostream>
 #include "Grid.h"
 
-/*! \brief Default constructor for the Grid.
- *
- * This is the initialisation of the game. It creates its own object manager so
- * as to have more control on their update cycle.
- */
 Grid::Grid(void)
 :
     m_Width(3),
@@ -21,15 +15,19 @@ Grid::~Grid(void)
 {
 }
 
-Action Grid::currentAction(void) const
+void Grid::update(float dt)
 {
-    return m_Action;
+    m_AllLayers.update(dt);
 }
 
-void Grid::act(Action a)
+void Grid::nextStep(void)
 {
-    m_Action = a;
-    nextStep();
+    m_AllLayers.nextStep();
+}
+
+void Grid::draw(sf::RenderTarget &rt, sf::RenderStates s) const
+{
+    m_AllLayers.draw(rt, s);
 }
 
 bool Grid::canMove(sf::Vector2i p, Direction d) const
@@ -51,18 +49,16 @@ bool Grid::canMove(sf::Vector2i p, Direction d) const
     return true;
 }
 
-void Grid::update(float dt)
+
+void Grid::act(Action a)
 {
-    m_AllLayers.update(dt);
+    m_Action = a;
+    nextStep();
+    m_Action = Action::None;
 }
 
-void Grid::nextStep(void)
+Action Grid::currentAction(void) const
 {
-    m_AllLayers.nextStep();
-}
-
-void Grid::draw(sf::RenderTarget &rt, sf::RenderStates s) const
-{
-    m_AllLayers.draw(rt, s);
+    return m_Action;
 }
 
