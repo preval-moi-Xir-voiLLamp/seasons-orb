@@ -39,8 +39,8 @@ class Object: public AbstractObject
 public:
     Object(const Grid &world, sf::Vector2i position=sf::Vector2i(0, 0));
     virtual ~Object(void);
-    void update(float dt) override = 0;
-    void nextStep(void) override = 0;
+    void update(float dt) final;
+    void nextStep(void) final;
     void draw(sf::RenderTarget &rt, sf::RenderStates s) const override;
 
 protected:
@@ -48,6 +48,9 @@ protected:
     sf::Vector2i m_Position; /*!< The current position of the object*/
 
 private:
+    virtual void impl_update(float dt) = 0;
+    virtual void impl_nextStep(void) = 0;
+
     /*! \brief The sprite to draw the object
      *
      * A circle for now

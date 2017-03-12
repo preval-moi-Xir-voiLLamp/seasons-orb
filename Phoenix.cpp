@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Phoenix.h"
 #include "Grid.h"
 
@@ -12,14 +11,12 @@ Phoenix::~Phoenix(void)
 {
 }
 
-void Phoenix::update(float dt)
+void Phoenix::impl_update(float)
 {
-    // Update regularilly
-    Object::update(dt);
     return;
 }
 
-void Phoenix::nextStep(void)
+void Phoenix::impl_nextStep(void)
 {
     Direction d = Direction::None;
     sf::Vector2i p = m_Position;
@@ -55,6 +52,4 @@ void Phoenix::nextStep(void)
     {
        m_Position = p;
     }
-
-    Object::nextStep();
 }

@@ -9,11 +9,11 @@ public:
     Phoenix(const Grid &world);
     virtual ~Phoenix(void);
 
-    void update(float dt) override;
-    void nextStep(void) override;
 
 
 private:
+    void impl_update(float dt) final;
+    void impl_nextStep(void) final;
 };
 
 #endif //HEAD_PHOENIX

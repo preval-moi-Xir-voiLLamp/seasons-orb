@@ -75,12 +75,17 @@ void Object::update(
     float
     /*!< Elapsed time since last update*/)
 {
+    impl_update(dt);
+
+    /*Invariants*/
     m_Sprite.setPosition(m_Position);
 }
 
 void Object::nextStep(void)
 {
-    std::cerr << "nextStep is not implemented" << std::endl;
+    impl_nextStep();
+
+    /*Invariants*/
 }
 
 /* */
