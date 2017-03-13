@@ -52,4 +52,15 @@ inline sf::Vector2i operator+(sf::Vector2i lhs, Direction rhs)
     return lhs;
 }
 
+inline std::ostream &operator<<(std::ostream &lhs, Direction rhs)
+{
+    switch(rhs)
+    {
+    case Direction::None: return lhs << "None";
+    case Direction::Left: return lhs << "Left";
+    case Direction::Right: return lhs << "Right";
+    case Direction::Up: return lhs << "Up";
+    case Direction::Down: return lhs << "Down";
+    }
+}
 #endif //HEAD_CONSTANT

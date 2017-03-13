@@ -9,6 +9,7 @@ Grid::Grid(void)
     m_AllCharacters(*m_AllLayers.add<Layer>()),
     m_Phoenix(*m_AllCharacters.add<Phoenix>(*this))
 {
+    push(&m_Phoenix, sf::Vector2i(0, 0));
 }
 
 Grid::~Grid(void)
@@ -32,8 +33,8 @@ void Grid::draw(sf::RenderTarget &rt, sf::RenderStates s) const
 
 bool Grid::canTake(Object *, sf::Vector2i pos) const
 {
-    return pos.x > 0 && pos.y > 0
-        && pos.x < m_Width - 1 && pos.y < m_Height - 1;
+    return pos.x >= 0 && pos.y >= 0
+        && pos.x < m_Width && pos.y < m_Height;
 }
 
 void Grid::pop(Object *, sf::Vector2i pos)
