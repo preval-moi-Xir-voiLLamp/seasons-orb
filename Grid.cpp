@@ -7,7 +7,8 @@ Grid::Grid(void)
     m_Grid(m_Width, std::vector<std::list<Object *>>(m_Height)),
     m_AllLayers(),
     m_AllCharacters(*m_AllLayers.add<Layer>()),
-    m_Phoenix(*m_AllCharacters.add<Phoenix>(*this))
+    m_Phoenix(*m_AllCharacters.add<Phoenix>(*this)),
+    m_Action(Action::None)
 {
     /*! \todo This is bad design. We should have the Grid add automatically the
      * object. Have a Grid::Add function
