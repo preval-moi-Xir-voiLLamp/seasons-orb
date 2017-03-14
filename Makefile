@@ -9,7 +9,7 @@ CC:=g++
 CXXFLAGS:=-W -Wall -Wextra -std=c++11 -g
 LDFLAGS:=-lsfml-window -lsfml-graphics -lsfml-system
 
-SRC:=Grid.cpp Object.cpp Phoenix.cpp
+SRC:=Grid.cpp Object.cpp Phoenix.cpp Runard.cpp
 HDR:=$(SRC:.cpp=.h) ObjectManager.h ObjectManager.tpp Constant.h
 SRC+=main.cpp
 

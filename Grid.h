@@ -9,6 +9,7 @@
 #include "Object.h"
 #include "ObjectManager.h"
 #include "Phoenix.h"
+#include "Runard.h"
 
 /*! \brief The main class of the game, it will manage all objects that are shown
  * in game.
@@ -17,6 +18,10 @@
  * notably in the update and nextstep function
  *
  * \todo Is it okay for Grid to be an Interface_ObjectManager ?
+ */
+
+/*! \todo This is kinda messy. Reorganize all ObjectManager and Refference
+ * to substructures. Also have a substructure for the actual grid?
  */
 class Grid: public Interface_ObjectManager
 {
@@ -106,6 +111,9 @@ private:
 
     Phoenix &m_Phoenix;
     /*!< Refference to the main character*/
+
+    RunardLayer &m_AllRunards;
+    /*!< Layer of all the runards that are in the game*/
 
     Action m_Action;
     /*!< The action in the current turn, if there is one*/

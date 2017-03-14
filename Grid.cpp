@@ -8,8 +8,10 @@ Grid::Grid(void)
     m_AllLayers(),
     m_AllCharacters(*m_AllLayers.add<Layer>()),
     m_Phoenix(*m_AllCharacters.add<Phoenix>(*this)),
+    m_AllRunards(*m_AllCharacters.add<RunardLayer>()),
     m_Action(Action::None)
 {
+    m_AllRunards.add<Runard>(*this, m_Phoenix);
 }
 
 Grid::~Grid(void)
@@ -18,8 +20,11 @@ Grid::~Grid(void)
 
 bool Grid::canTake(Object *, sf::Vector2i pos) const
 {
+    /*! \todo Have canTake ask for the other objects if they can take obj
+     */
     return pos.x >= 0 && pos.y >= 0
-        && pos.x < m_Width && pos.y < m_Height;
+        && pos.x < m_Width && pos.y < m_Height
+        && m_Grid[pos.x][pos.y].empty();
 }
 
 void Grid::act(Action a)
