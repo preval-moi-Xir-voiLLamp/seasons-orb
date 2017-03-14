@@ -26,7 +26,7 @@ doc: $(SRC) $(HDR) $(DOXYFILE)
 $(EXEC): $(OBJ) $(HDR)
 	$(CC) -o $@ $(OBJ) $(LDFLAGS)
 
-$(addprefix $(OBJDIR),%.o): %.cpp
+$(addprefix $(OBJDIR),%.o): %.cpp $(HDR)
 	$(CC) -o $@ -c $< $(CXXFLAGS)
 
 .PHONY: clean mrproper rebuild
