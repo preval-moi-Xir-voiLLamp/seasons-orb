@@ -25,10 +25,10 @@ void AbstractObject::die(void)
 
 /*** Object ***/
 
-Object::Object(Grid &world, sf::Vector2i position)
+Object::Object(Grid &world, sf::Color col, sf::Vector2i position)
 :
     m_World(world),
-    m_Sprite(),
+    m_Sprite(col),
     m_Position(position)
 {
     m_World.correct(this);
@@ -81,10 +81,11 @@ void Object::move(sf::Vector2i newPos)
 
 /*** Object::Sprite ***/
 
-Object::Sprite::Sprite(void)
+Object::Sprite::Sprite(sf::Color col)
 :
     m_Circle(50, 50)
 {
+    m_Circle.setFillColor(col);
 }
 
 Object::Sprite::~Sprite(void)

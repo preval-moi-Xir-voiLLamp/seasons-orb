@@ -63,6 +63,8 @@ private:
     /*!< Is the object to be destroyed? */
 };
 
+/*! \todo Have Object actually have a Sprite initializer structure */
+
 /*! \brief Type of every object that are concrete and in the game
  *
  * Such objects all have a sprites, and the update/nextStep function is
@@ -72,11 +74,14 @@ private:
 class Object: public AbstractObject
 {
 public:
-    /*! \brief Constructor of AbstractObject
+    /*! \brief Constructor of Object
      */
     Object(
         Grid &world,
         /*!< Reference to the world the objects live in*/
+
+        sf::Color col,
+        /*!< Color of the sprite to use. This is useful to distinguish objects*/
 
         sf::Vector2i position = sf::Vector2i(0, 0)
         /*!< The starting position of the object*/);
@@ -157,7 +162,9 @@ private:
     {
         /*! \brief Constructor of Sprite
          */
-        Sprite(void);
+        Sprite(
+            sf::Color col
+            /*!< The color of the circle */);
 
         /*! \brief Destructor of Sprite
          */

@@ -3,7 +3,7 @@
 
 Phoenix::Phoenix(Grid &world)
 :
-    Object(world)
+    Object(world, sf::Color::Red)
 {
 }
 
