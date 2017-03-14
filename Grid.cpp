@@ -10,10 +10,6 @@ Grid::Grid(void)
     m_Phoenix(*m_AllCharacters.add<Phoenix>(*this)),
     m_Action(Action::None)
 {
-    /*! \todo This is bad design. We should have the Grid add automatically the
-     * object. Have a Grid::Add function
-     */
-    m_Grid[0][0].push_front(&m_Phoenix);
 }
 
 Grid::~Grid(void)

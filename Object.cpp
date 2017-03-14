@@ -31,6 +31,7 @@ Object::Object(Grid &world, sf::Vector2i position)
     m_Sprite(),
     m_Position(position)
 {
+    m_World.correct(this);
 }
 
 Object::~Object(void)
