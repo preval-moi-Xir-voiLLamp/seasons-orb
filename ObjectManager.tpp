@@ -13,7 +13,7 @@ U* ObjectManager<T>::add(Args&& ... args
     /*!< The list of the argument to give to the constructor of U*/)
 {
     U *created = new U(args...);
-    m_AliveList.push_front(created);
+    m_AliveList.push_back(created);
     return created;
 }
 
