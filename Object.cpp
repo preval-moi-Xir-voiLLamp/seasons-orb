@@ -37,6 +37,16 @@ Object::~Object(void)
 {
 }
 
+sf::Vector2i Object::getPosition(void) const
+{
+    return m_Position;
+}
+
+sf::Vector2i Object::getOldPosition(void) const
+{
+    return m_OldPosition;
+}
+
 void Object::update(float dt)
 {
     impl_update(dt);
@@ -57,14 +67,14 @@ void Object::draw(sf::RenderTarget &rt, sf::RenderStates s) const
     rt.draw(m_Sprite, s);
 }
 
-void Object::move(Direction d)
+void Object::move(sf::Vector2i newPos)
 {
-    sf::Vector2i newPos = m_Position + d;
     if(m_World.canTake(this, newPos))
     {
-        m_World.pop(this, m_Position);
+        m_OldPosition = m_Position;
         m_Position = newPos;
-        m_World.push(this, m_Position);
+
+        m_World.correct(this);
     }
 }
 

@@ -32,14 +32,6 @@ public:
     */
     ~Grid(void);
 
-    /* */
-    void update(float dt) override;
-
-    /* */
-    void nextStep(void) override;
-
-    /* */
-    void draw(sf::RenderTarget &rt, sf::RenderStates s) const override;
 
     /*! \brief Says wether an object obj can come into the case of position p
      *
@@ -53,34 +45,6 @@ public:
 
         sf::Vector2i pos
         /*!< The posiition where the object want to move into */) const;
-
-    /*! Pop an object from the grid
-     *
-     * \warning As of now, there is no check of wether there is actually an
-     * object or if it is the right one
-     *
-     * \todo Refactor pop and push
-     * \todo Have an actual check of the object
-     * \todo Delete pos parameter, and use a getPos function instead
-     */
-    void pop(
-        Object *obj,
-        /*!< The object to pop*/
-
-        sf::Vector2i pos
-        /*!< The position of the object to pop from*/);
-
-     /*! Push an object into the grid
-     *
-     * \todo Refactor pop and push
-     * \todo Delete pos parameter, and use a getPos function instead
-     */
-    void push(
-        Object *obj,
-        /*!< The object to push*/
-
-        sf::Vector2i pos
-        /*!< The position of the object to push into*/);
 
     /*! \brief Advance all Objects to a new turn under the Action of the player a
     */
@@ -98,6 +62,29 @@ public:
      * turn
      */
     Action currentAction(void) const;
+
+    /*! \brief Updates the position of an Object on the Grid
+     *
+     * Because most Objects are assumed to be static, it'd be a waste of time to
+     * update the position of every one of them. We therefor have this function
+     * that corrects the position of an Object.
+     *
+     * \warning An object is therefor trusted not to change its position without
+     * calling this function. This is enforced with Object::move
+     */
+    void correct(
+        Object *obj
+        /*!< The object to correct the position of */);
+
+
+    /* */
+    void update(float dt) override;
+
+    /* */
+    void nextStep(void) override;
+
+    /* */
+    void draw(sf::RenderTarget &rt, sf::RenderStates s) const override;
 
 private:
     int m_Width;

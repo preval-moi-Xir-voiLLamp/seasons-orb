@@ -45,6 +45,7 @@ void Phoenix::impl_nextStep(void)
 
     if(d != Direction::None)
     {
-        move(d);
+        /*! \todo Use a moveTo function? */
+        move(getPosition() + d);
     }
 }

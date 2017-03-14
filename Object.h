@@ -85,6 +85,18 @@ public:
      */
     virtual ~Object(void);
 
+    /*! \brief Acces the current position of the object
+     *
+     * \return The current position
+     */
+    sf::Vector2i getPosition(void) const;
+
+    /*! \brief Acces the position of the object at the start of this turn
+     *
+     * \return The old position
+     */
+    sf::Vector2i getOldPosition(void) const;
+
     /*! \brief Updates the object
      *
      * This function is a non-virtual interface overriding of
@@ -110,11 +122,11 @@ public:
 
 
 protected:
-    /*! \brief Move the object to a direction d
+    /*! \brief Move the object to the case newPos
      */
     void move(
-        Direction d
-        /*!< The direction to move toward*/);
+        sf::Vector2i newPos
+        /*!< The case to move into*/);
 
     Grid &m_World;
     /*!< The world the object lives in*/
@@ -132,7 +144,7 @@ private:
 
     /*! \brief Takes an object to its next step with respect to that object
      *
-     * This function is a pure virtual function to be overrided with each specific
+     * This function is a pure virtual function to be overriden with each specific
      * objects. It should not take into consideration global invariants.
      */
     virtual void impl_nextStep(void) = 0;
@@ -171,7 +183,12 @@ private:
     /*!< Sprite of the object*/
 
     sf::Vector2i m_Position;
-    /*!< The current position of the object on the grid*/
+    /*!< The current position of the object on the grid.
+     * \warning This should never be changed. Use Object::move instead*/
+
+    sf::Vector2i m_OldPosition;
+    /*! \brief The position of the object before moving, or last turn
+     */
 };
 
 #endif //HEAD_OBJECT

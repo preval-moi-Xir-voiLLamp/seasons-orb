@@ -9,11 +9,43 @@ Grid::Grid(void)
     m_AllCharacters(*m_AllLayers.add<Layer>()),
     m_Phoenix(*m_AllCharacters.add<Phoenix>(*this))
 {
-    push(&m_Phoenix, sf::Vector2i(0, 0));
+    /*! \todo This is bad design. We should have the Grid add automatically the
+     * object. Have a Grid::Add function
+     */
+    m_Grid[0][0].push_front(&m_Phoenix);
 }
 
 Grid::~Grid(void)
 {
+}
+
+bool Grid::canTake(Object *, sf::Vector2i pos) const
+{
+    return pos.x >= 0 && pos.y >= 0
+        && pos.x < m_Width && pos.y < m_Height;
+}
+
+void Grid::act(Action a)
+{
+    m_Action = a;
+    nextStep();
+    m_Action = Action::None;
+}
+
+Action Grid::currentAction(void) const
+{
+    return m_Action;
+}
+
+void Grid::correct(Object *obj)
+{
+    sf::Vector2i oldPos = obj->getOldPosition();
+    sf::Vector2i newPos = obj->getPosition();
+
+    m_Grid[oldPos.x][oldPos.y].remove(obj);
+
+    /*! \todo Have the grid asks for the object to accept the new one*/
+    m_Grid[newPos.x][newPos.y].push_front(obj);
 }
 
 void Grid::update(float dt)
@@ -29,33 +61,5 @@ void Grid::nextStep(void)
 void Grid::draw(sf::RenderTarget &rt, sf::RenderStates s) const
 {
     m_AllLayers.draw(rt, s);
-}
-
-bool Grid::canTake(Object *, sf::Vector2i pos) const
-{
-    return pos.x >= 0 && pos.y >= 0
-        && pos.x < m_Width && pos.y < m_Height;
-}
-
-void Grid::pop(Object *, sf::Vector2i pos)
-{
-    m_Grid[pos.x][pos.y].pop_front();
-}
-
-void Grid::push(Object *obj, sf::Vector2i pos)
-{
-    m_Grid[pos.x][pos.y].push_front(obj);
-}
-
-void Grid::act(Action a)
-{
-    m_Action = a;
-    nextStep();
-    m_Action = Action::None;
-}
-
-Action Grid::currentAction(void) const
-{
-    return m_Action;
 }
 
